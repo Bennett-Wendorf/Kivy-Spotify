@@ -1,6 +1,9 @@
 #VScode
 .vscode/
 
+# Secrets
+settings.yaml
+
 # Pipfile
 Pipfile.lock
 

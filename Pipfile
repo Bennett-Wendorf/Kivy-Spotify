@@ -7,6 +7,8 @@ name = "pypi"
 kivy = "*"
 requests-oauthlib = "*"
 aiohttp = "*"
+spotipy = "*"
+pyyaml = "*"
 
 [dev-packages]
 
