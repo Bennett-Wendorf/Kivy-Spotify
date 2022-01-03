@@ -1,3 +1,6 @@
+#VScode
+.vscode/
+
 # Pipfile
 Pipfile.lock
 
