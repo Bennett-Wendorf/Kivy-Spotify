@@ -1,15 +1,57 @@
 # #:kivy !
-
 <SpotifyWidget>:
+    AsyncImage:
+        id: album_art
+        source: 'res/Spotify_Icon_RGB_Green.png'
+        size: self.width, self.height
+        size_hint: 0.3, 0.3
+        pos_hint: {'center_x': 0.2, 'center_y': 0.6}
+    Image:
+        id: spotify_logo
+        source: 'res/Spotify_Icon_RGB_White.png'
+        size: self.width, self.height
+        size_hint: 0.15, 0.15
+        pos_hint: {'x': 0.85, 'y': 0.85}
     Label:
         id: song_title
-        text: ""
+        text: "No title found"
         font_size: '25sp'
-    Label: 
-        id: artist
-        text: ""
-        font_size: '20sp'
+        pos_hint: {'center_x': 0.7, 'center_y': 0.7}
     Label:
         id: album 
-        text: ""
-        font_size: '20sp'
+        text: "No album found"
+        font_size: '15sp'
+        pos_hint: {'center_x': 0.7, 'center_y': 0.6}
+    Label:
+        id: artist
+        text: "No artist found"
+        font_size: '15sp'
+        pos_hint: {'center_x': 0.7, 'center_y': 0.5}
+    # CircularButton:
+    #     id: play_pause
+    #     text: 'Play/Pause'
+    #     size_hint: 0.15, 0.15
+    #     pos_hint: {'center_x': 0.7, 'center_y': 0.3}
+    #     canvas.before:
+    #         Color:
+    #             rgb: (0.3, 0.8157, 1, 1) if self.state == 'normal' else (0.129, 0.694, 0.7725, 1) 
+    #         RoundedRectangle:
+    #             size: self.size
+    #             pos: self.pos
+    #             radius: [400, ]
+    #     on_release:
+    #         print("This is the play/pause button.")
+    #     Image:
+    #         id: play_pause_icon
+    #         source: 'res/play.svg'
+    # MDIconButton:
+    #     icon: 'play'
+    #     # icon_size: '80sp'
+    #     # size_hint: 0.15, 0.15
+    #     pos_hint: {'center_x': 0.7, 'center_y': 0.3}
+    ProgressBar:
+        id: playback_progress
+        pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+        size_hint_x: 0.95
+        max: 100
+        value: 65

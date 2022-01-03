@@ -1,9 +1,14 @@
 from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.button import ButtonBehavior 
+from kivy.uix.label import Label 
 from kivy.clock import Clock
 import threading
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import yaml
+
+class CircularButton(ButtonBehavior, Label):
+    pass
 
 class SpotifyWidget(RelativeLayout):
 
@@ -13,7 +18,7 @@ class SpotifyWidget(RelativeLayout):
         # Auth stuff
         self.spotify = self.Spotify_Auth()
 
-        print(self.Get_Playing()['item']['name'])
+        print(self.Get_Playing())
 
         super(SpotifyWidget, self).__init__(**kwargs)
 
