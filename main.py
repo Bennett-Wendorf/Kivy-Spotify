@@ -11,8 +11,10 @@ Window.size=(240,160)
 
 class KivySpotifyApp(MDApp):
     def build(self):
+        self.theme_cls.primary_palette = "Cyan"
+        self.theme_cls.theme_style = "Dark"
         super(KivySpotifyApp, self).build()
         return SpotifyWidget()
 
 if __name__ == '__main__':
-    KivySpotifyApp().run()f
+    KivySpotifyApp().run()

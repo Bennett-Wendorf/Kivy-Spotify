@@ -1,34 +1,53 @@
-from kivy.uix.relativelayout import RelativeLayout
-from kivy.uix.button import ButtonBehavior 
-from kivy.uix.label import Label 
+from kivy.uix.relativelayout import RelativeLayout 
 from kivy.clock import Clock
+from kivy.properties import StringProperty, BooleanProperty, NumericProperty
 import threading
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import yaml
 
-class CircularButton(ButtonBehavior, Label):
-    pass
-
 class SpotifyWidget(RelativeLayout):
 
     spotify = None
+
+    current_title = StringProperty()
+    current_album = StringProperty()
+    current_artist = StringProperty()
+    playing = BooleanProperty()
+    track_duration = NumericProperty()
+    curr_playback_time = NumericProperty()
     
     def __init__(self, **kwargs):
-        # Auth stuff
+
+        self.current_title = "No Song Playing"
+        self.current_album = "No Song Playing"
+        self.current_artist = "No Song Playing"
+        self.playing = False
+        self.track_duration = 100
+        self.curr_playback_time = 0
+
+        # Authorize the client
         self.spotify = self.Spotify_Auth()
 
-        print(self.Get_Playing())
+        self.Start_Update_Loop()
 
         super(SpotifyWidget, self).__init__(**kwargs)
 
-        Clock.schedule_interval(self.Start_Update_Loop, 10)
+        Clock.schedule_interval(self.Start_Update_Loop, 1)
 
     def Get_Playing(self):
         print("Running Get_Playing")
-        return self.spotify.current_playback()
+        current = self.spotify.current_playback()
+        if(current is not None):
+            self.playing = current['is_playing']
+            self.current_title = current['item']['name']
+            self.current_album = current['item']['album']['name']
+            self.current_artist = ", ".join([str(x['name']) for x in current['item']['artists']]) 
+            self.track_duration = current['item']['duration_ms']
+            self.curr_playback_time = current['progress_ms']
 
-    def Start_Update_Loop(self, dt):
+
+    def Start_Update_Loop(self, *args):
         update_thread = threading.Thread(target=self.Get_Playing)
         update_thread.setDaemon(True)
         update_thread.start()
