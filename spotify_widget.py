@@ -33,7 +33,7 @@ class SpotifyWidget(RelativeLayout):
 
         super(SpotifyWidget, self).__init__(**kwargs)
 
-        Clock.schedule_interval(self.Start_Update_Loop, 1)
+        Clock.schedule_interval(self.Start_Update_Loop, 5)
 
     def Get_Playing(self):
         print("Running Get_Playing")
@@ -45,7 +45,14 @@ class SpotifyWidget(RelativeLayout):
             self.current_artist = ", ".join([str(x['name']) for x in current['item']['artists']]) 
             self.track_duration = current['item']['duration_ms']
             self.curr_playback_time = current['progress_ms']
+            self.ids.album_art.source = current['item']['album']['images'][1]['url']
 
+    def Toggle_Playback(self):
+        print("Running Toggle_Playback")
+        if(self.playing):
+            self.spotify.pause_playback()
+        else:
+            self.spotify.start_playback()
 
     def Start_Update_Loop(self, *args):
         update_thread = threading.Thread(target=self.Get_Playing)
