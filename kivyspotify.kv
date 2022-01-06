@@ -2,35 +2,50 @@
 <SpotifyWidget>:
     AsyncImage:
         id: album_art
-        source: 'res/Spotify_Icon_RGB_Green.png'
+        source: 'res/icons/Spotify_Icon_RGB_Green.png'
         size: self.width, self.height
-        size_hint: 0.3, 0.3
-        pos_hint: {'center_x': 0.27, 'center_y': 0.6}
+        size_hint: 0.5, 0.5
+        pos_hint: {'center_x': 0.25, 'center_y': 0.5}
     Image:
         id: spotify_logo
-        source: 'res/Spotify_Icon_RGB_White.png'
+        source: 'res/icons/Spotify_Icon_RGB_White.png'
         size: self.width, self.height
         size_hint: 0.15, 0.15
         pos_hint: {'x': 0.85, 'y': 0.85}
     Label:
         id: song_title
-        text: root.current_title
-        font_size: '25sp'
-        pos_hint: {'center_x': 0.7, 'center_y': 0.7}
+        # TODO: Set this up to be able to scroll to view entire title?
+        text: root.current_title if len(root.current_title) < 19 else root.current_title[:17] + "..."
+        font_size: '22sp'
+        text_size: self.size
+        size_hint: 0.5, 0.18
+        halign: 'center'
+        valign: 'center'
+        pos_hint: {'center_x': 0.75, 'center_y': 0.65}
     Label:
         id: album 
-        text: root.current_album
+        # TODO: Set this up to be able to scroll to view entire album?
+        text: root.current_album if len(root.current_album) < 28 else root.current_album[:26] + '...'
         font_size: '15sp'
-        pos_hint: {'center_x': 0.7, 'center_y': 0.6}
+        text_size: self.size
+        size_hint: 0.5, 0.065
+        halign: 'center'
+        valign: 'center'
+        pos_hint: {'center_x': 0.75, 'center_y': 0.45}
     Label:
         id: artist
-        text: root.current_artist
+        # TODO: Set this up to be able to scroll to view entire artist?
+        text: root.current_artist if len(root.current_artist) < 28 else root.current_artist[:26] + '...'
         font_size: '15sp'
-        pos_hint: {'center_x': 0.7, 'center_y': 0.5}
+        text_size: self.size
+        size_hint: 0.5, 0.065
+        halign: 'center'
+        valign: 'center'
+        pos_hint: {'center_x': 0.75, 'center_y': 0.35}
     MDIconButton:
         icon: 'pause' if root.playing else 'play'
         icon_size: "64sp"
-        pos_hint: {'center_x': 0.7, 'center_y': 0.3}
+        pos_hint: {'center_x': 0.75, 'center_y': 0.2}
         on_release: root.Toggle_Playback()
     ProgressBar:
         id: playback_progress

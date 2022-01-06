@@ -19,6 +19,7 @@ class SpotifyWidget(RelativeLayout):
     
     def __init__(self, **kwargs):
 
+        # TODO: Find a way to truncate these so they don't look weird
         self.current_title = "No Song Playing"
         self.current_album = "No Song Playing"
         self.current_artist = "No Song Playing"
@@ -49,10 +50,14 @@ class SpotifyWidget(RelativeLayout):
 
     def Toggle_Playback(self):
         print("Running Toggle_Playback")
-        if(self.playing):
-            self.spotify.pause_playback()
-        else:
-            self.spotify.start_playback()
+        try:
+            if(self.playing):
+                self.spotify.pause_playback()
+            else:
+                self.spotify.start_playback()
+        except spotipy.SpotifyException as se:
+            # TODO: Output message visibly to user when this is caught
+            pass
 
     def Start_Update_Loop(self, *args):
         update_thread = threading.Thread(target=self.Get_Playing)
