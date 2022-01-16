@@ -5,7 +5,7 @@
         source: 'res/icons/Spotify_Icon_RGB_Green.png'
         size: self.width, self.height
         size_hint: 0.5, 0.5
-        pos_hint: {'center_x': 0.25, 'center_y': 0.5}
+        pos_hint: {'center_x': 0.25, 'center_y': 0.6}
     Image:
         id: spotify_logo
         source: 'res/icons/Spotify_Icon_RGB_White.png'
@@ -14,39 +14,42 @@
         pos_hint: {'x': 0.85, 'y': 0.85}
     Label:
         id: song_title
-        # TODO: Set this up to be able to scroll to view entire title?
-        text: root.current_title if len(root.current_title) < 19 else root.current_title[:17] + "..."
-        font_size: '22sp'
-        text_size: self.size
-        size_hint: 0.5, 0.18
+        text: root.current_title
+        text_size: self.width, None
+        font_size: self.height * 0.5
+        size_hint: 0.5, 0.2
         halign: 'center'
         valign: 'center'
-        pos_hint: {'center_x': 0.75, 'center_y': 0.65}
+        pos_hint: {'center_x': 0.75, 'center_y': 0.73}
+        shorten: True
+        shorten_from: 'right'
     Label:
         id: album 
-        # TODO: Set this up to be able to scroll to view entire album?
-        text: root.current_album if len(root.current_album) < 28 else root.current_album[:26] + '...'
-        font_size: '15sp'
-        text_size: self.size
-        size_hint: 0.5, 0.065
+        text: root.current_album
+        text_size: self.width, None
+        font_size: self.height * 0.5
+        size_hint: 0.5, 0.13
         halign: 'center'
         valign: 'center'
-        pos_hint: {'center_x': 0.75, 'center_y': 0.45}
+        pos_hint: {'center_x': 0.75, 'center_y': 0.57}
+        shorten: True
+        shorten_from: 'right'
     Label:
         id: artist
-        # TODO: Set this up to be able to scroll to view entire artist?
-        text: root.current_artist if len(root.current_artist) < 28 else root.current_artist[:26] + '...'
-        font_size: '15sp'
-        text_size: self.size
-        size_hint: 0.5, 0.065
+        text: root.current_artist
+        text_size: self.width, None
+        font_size: self.height * 0.5
+        size_hint: 0.5, 0.13
         halign: 'center'
         valign: 'center'
-        pos_hint: {'center_x': 0.75, 'center_y': 0.35}
+        pos_hint: {'center_x': 0.75, 'center_y': 0.43}
+        shorten: True
+        shorten_from: 'right'
     MDIconButton:
         icon: 'pause' if root.playing else 'play'
-        icon_size: "64sp"
-        pos_hint: {'center_x': 0.75, 'center_y': 0.2}
+        pos_hint: {'center_x': 0.75, 'center_y': 0.25}
         on_release: root.Toggle_Playback()
+        user_font_size: 10
     ProgressBar:
         id: playback_progress
         pos_hint: {'center_x': 0.5, 'center_y': 0.1}
